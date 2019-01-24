@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--加载bootstrap3应用、css和javascript文件-->
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>缺陷管理平台</title>
+</head>
+<body role="document">
+    <!--导航栏-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/my_projects/">缺陷管理平台</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!--class='active' 表示当前菜单处于选中状态 href用于页面跳转-->
+
+                    <li class="active"><a href="#">所有缺陷</a></li>
+                    <li><a href="/pending_disposal/">我的待办</a> </li>
+                    <li><a href="/defect_statistics/">缺陷统计</a> </li>
+                    <li><a href="/{{ project.id }}/create_bug/">新建缺陷</a> </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">{{ user }}</a></li>
+                    <li><a href="/logout/">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--bug搜索表单-->
+    <div class="page-header" style="padding-top: 60px;width:960px;margin: 0 auto;">
+        <div id="navbar" class="navbar-collapse collapse" style="margin: 0 auto;">
+            <form class="navbar-form" method="get" action="/search_bugs/">
+                <div class="form-group">
+                    <input name="id" type="text" placeholder="缺陷id" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">搜索</button>
+            </form>
+        </div>
+    </div>
+
+    <!--项目详情bug列表-->
+    <div class="row" style="padding-top: 5px;width:960px;margin: 0 auto;"> <!--top为设置上边距-->
+        <div class="col-md-6" style="width:960px;margin: 0 auto;">
+            <table class="table table-striped" align="center">
+                <thead>
+                <tr>
+                    <th>id</th><th>标题</th><th>状态</th><th>严重程度</th><th>优先级</th><th>处理人</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--循环打印字段数据-->
+
+                {% for bug in bugs %}
+                <tr>
+                    <td>{{ bug.id }}</td>
+                    <td>
+                        <a href="/bug_index/{{ bug.id }}/" >{{ bug.name }}</a> <!--target表示链接在新窗口打开target="{{ bug.id }}_blank"-->
+                    </td>
+                    <td>
+                        <script type="text/javascript">
+                        var status = {{ bug.status }}
+                        if(status=1)
+                        {document.write('待处理')}
+                        else if(status=2)
+                        {document.write('待审核')}
+                        else if(status=3)
+                        {document.write('已修复')}
+                        else if(status=4)
+                        {document.write('已拒绝')}
+                        else {document.write('未知')}
+                    </script>
+
+                    </td>
+                    <td>{{ bug.degree }}</td>
+                    <td>{{ bug.priority }}</td>
+                    <td>{{ bug.Dealing_people }}</td>
+
+                </tr>
+                {% endfor %} <!--表示语句结束-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--列表分页器-->
+    <div class="divcss5-right" style="padding-top: 5px;width:960px;margin: 0 auto;">
+        <span class="step-links">
+            {% if teams.has_previous %}
+            <a href="?page={{ bugs.previous_page_number }}">上一页</a>
+            {% endif %}
+            <span class="current">
+                第 {{ bugs.number }} 页/共 {{ bugs.paginator.num_pages }} 页
+            </span>
+            {% if bugs.has_next %}
+            <a href="?page={{ bugs.next_page_number }}">下一页</a>
+            {% endif %}
+        </span>
+    </div>
+
+</body>
+</html>

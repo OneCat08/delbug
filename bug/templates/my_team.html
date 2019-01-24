@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>缺陷管理平台</title>
+</head>
+<body>
+    <!--导航栏-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/my_projects/">缺陷管理平台</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/my_projects/">我的项目</a> </li>
+                    <li class="active"><a href="#">我的团队</a> </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">{{ user }}</a></li>
+                    <li><a href="/logout/">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--团队列表-->
+    <div class="row" style="padding-top: 60px;width:960px;margin: 0 auto;">
+        <div class="col-md-6" style="width:960px;margin: 0 auto;">
+            <table class="table table-striped" align="center">
+                <thead>
+                <tr>
+                    <th>id</th><th>名称</th><th>时间</th><th>人数</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for t in teams %}
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td><a href="/pro_index/{{ t.id }}/">{{ t.Tname }}</a></td>
+                    <td>{{ t.create_time }}</td>
+                    <td>{{ t.number }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--列表分页器-->
+    <div class="divcss5-right" style="padding-top: 5px;width:960px;margin: 0 auto;">
+        <span class="step-links">
+            {% if teams.has_previous %}
+            <a href="?page={{ teams.previous_page_number }}">上一页</a>
+            {% endif %}
+            <span class="current">
+                第 {{ teams.number }} 页/共 {{ teams.paginator.num_pages }} 页
+            </span>
+            {% if teams.has_next %}
+            <a href="?page={{ teams.next_page_number }}">下一页</a>
+            {% endif %}
+        </span>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--加载bootstrap3应用、css和javascript文件-->
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>缺陷管理平台</title>
+</head>
+
+<script type="text/javascript" charset="utf-8" src="../../static/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../static/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../static/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+var ue = UE.getEditor('content');
+</script>
+<body role="document">
+    <!--导航栏-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/my_projects/">缺陷管理平台</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!--class='active' 表示当前菜单处于选中状态 href用于页面跳转-->
+                    <li class="active"><a href="#">新建缺陷</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">{{ user }}</a></li>
+                    <li><a href="/logout/">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--新建表单-->
+    <div class="row" style="padding-top: 60px;">
+                 <div class="col-md-12">
+                   <div class="white-box">
+                        <form class="form-horizontal" method="post" action="/create_action/">
+                            <div class="form-group">
+                            <label class="col-md-2 control-label">{{ project.name }}</label>
+                                <div name="pid">{{ project.id }}</div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-2 control-label">标题</label>
+                            <div class="col-md-10">
+                              <input name="name" class="form-control" placeholder="标题" type="text" style="width: 800px;">{{ error1 }}
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">严重程度</label>
+                            <div class="col-sm-10">
+                              <select name="degree" class="form-control" style="width: 800px;">
+                                <option value="1">致命</option>
+                                <option value="2">严重</option>
+                                <option value="3">较重</option>
+                                <option value="4">一般</option>
+                                <option value="5">建议</option>
+                              </select>
+                            </div>
+                          </div>
+
+							<div class="form-group">
+                            <label class="col-sm-2 control-label">优先级</label>
+                            <div class="col-sm-10">
+                              <select name="priority" class="form-control" style="width: 800px;">
+                                <option value="1">马上解决</option>
+                                <option value="2">急需解决</option>
+                                <option value="3">高度重视</option>
+                                <option value="4">正常处理</option>
+                                <option value="5">低优先级</option>
+                              </select>
+                            </div>
+                          </div>
+
+                            <div class="form-group">
+                            <label class="col-sm-2 control-label">处理人</label>
+                            <div class="col-sm-10">
+                              <select  name="Dealing_people" class="form-control" style="width: 800px;">
+                                <option>开发一</option>
+                                <option>开发二</option>
+                                <option>开发三</option>
+                                <option>开发四</option>
+                                <option>开发五</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-md-2 control-label">描述</label>
+                            <div class="col-md-10">
+                                <!--<textarea name="editor" id="editor" style="width:100%;height:350px;"></textarea>-->
+                                <textarea name="content" id="content" style="width: 800px; height: 400px; ">
+                                    <p align="left" >
+                                        <font face="黑体" color="red">
+                                            <b>测试环境</b>
+                                        </font>:<br>
+                                        <font face="黑体" color="red">
+                                            <b>测试数据</b>
+                                        </font>:<br><hr>
+                                        <font face="黑体" color="red">
+                                            <b>路径</b>
+                                        </font>:<br><hr>
+                                        <font face="黑体" color="red">
+                                            <b>操作步骤</b>
+                                        </font>:<br><hr>
+                                        <font face="黑体" color="red">
+                                            <b>预期结果</b>
+                                        </font>:<br>
+                                        <font face="黑体" color="red">
+                                            <b>实际结果</b>
+                                        </font>:<br><hr>
+                                    </p>
+                                </textarea> <!--margin: 0 auto; 居中-->
+                            </div>
+                          </div>
+
+                            <!--<div class="form-group">
+                            <label class="col-md-2 control-label">添加附件</label>
+                            <div class="col-md-10">
+                                <input type="file" name="file">
+                            </div>
+                          </div>-->
+
+                            <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input type="submit" value="提交">
+                            </div>
+                          </div>
+
+                        </form>
+                   </div>
+                  </div>
+              </div>
+             <!--End row-->
+
+</body>
+</html>
