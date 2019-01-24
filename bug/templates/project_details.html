@@ -43,11 +43,10 @@
             </form>
         </div>
     </div>
-
     <!--项目详情bug列表-->
     <div class="row" style="padding-top: 5px;width:960px;margin: 0 auto;"> <!--top为设置上边距-->
         <div class="col-md-6" style="width:960px;margin: 0 auto;">
-            <table class="table table-striped" align="center">
+            <table class="table table-striped" align="center" id="ta-bug">
                 <thead>
                 <tr>
                     <th>id</th><th>标题</th><th>状态</th><th>严重程度</th><th>优先级</th><th>处理人</th>
@@ -55,7 +54,6 @@
                 </thead>
                 <tbody>
                 <!--循环打印字段数据-->
-
                 {% for bug in bugs %}
                 <tr>
                     <td>{{ bug.id }}</td>
@@ -64,7 +62,7 @@
                     </td>
                     <td>
                         <script type="text/javascript">
-                        var status = {{ bug.status }}
+                        var status = {{ bug.status }};
                         if(status=1)
                         {document.write('待处理')}
                         else if(status=2)
@@ -74,13 +72,11 @@
                         else if(status=4)
                         {document.write('已拒绝')}
                         else {document.write('未知')}
-                    </script>
-
+                        </script>
                     </td>
                     <td>{{ bug.degree }}</td>
                     <td>{{ bug.priority }}</td>
                     <td>{{ bug.Dealing_people }}</td>
-
                 </tr>
                 {% endfor %} <!--表示语句结束-->
                 </tbody>
@@ -102,6 +98,17 @@
             {% endif %}
         </span>
     </div>
+
+    <script type="text/javascript">
+
+                        var bid = document.getElementById('ta-bug').tbody;
+                        var proid = {{ project.id }};
+                        var buid = {{ bugs.id }};
+                        /*for(var i = 0;i<contacts.length;i++){if(contacts[i].Pid != proid) {bid.style.display='none'}*/
+                        console.log(proid);
+                        console.log(buid)
+    </script>
+
 
 </body>
 </html>

@@ -126,9 +126,10 @@ def create_bug(request, pid):
                                                'project': project})
 
 # 新建缺陷提交动作
-def create_action(request, pid):
+def create_action(request):
     if request.method == 'POST':
         pid = request.POST.get('pid', '')
+        ppid = Project.objects.get(id__iexact=pid)
         name = request.POST.get('name', '')
         degree = request.POST.get('degree', '')  # 严重程度
         priority = request.POST.get('priority', '')  # 优先级
@@ -139,8 +140,8 @@ def create_action(request, pid):
             return render(request, 'create_bug.html', {'error1': '标题不能为空'})
         else:
             bug = Bug(name=name, status=1, degree=degree, priority=priority,
-                      Dealing_people=Dealing_people, description=con, Pid=pid)
+                      Dealing_people=Dealing_people, description=con, Pid=ppid)
             # 写入数据库
             bug.save()
-            response = HttpResponseRedirect('/project_details/')
+            response = HttpResponseRedirect('/project_details/'+pid)
             return response
