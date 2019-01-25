@@ -21,6 +21,7 @@ urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
     path('index/', views.index),
+    path('user_info/', views.user_info),
     path('login_action/', views.login_action),  # 登录动作处理路由
     path('my_projects/', views.my_projects),  # 我的项目列表页路由
     path('accounts/login/', views.index),  # 登录

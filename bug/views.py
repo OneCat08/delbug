@@ -29,7 +29,7 @@ def login_action(request):
 def my_projects(request):
     project_list = Project.objects.all()
     username = request.session.get('user', '')
-    paginator = Paginator(project_list, 5)
+    paginator = Paginator(project_list, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -48,7 +48,7 @@ def search_name(request):
     username = request.session.get('user', '')
     search_name = request.GET.get('name', '')
     project_list = Project.objects.filter(name__contains=search_name)
-    paginator = Paginator(project_list, 5)
+    paginator = Paginator(project_list, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -66,7 +66,7 @@ def search_name(request):
 def my_teams(request):
     username = request.session.get('user', '')
     team_list = Team.objects.all()
-    paginator = Paginator(team_list, 5)
+    paginator = Paginator(team_list, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -84,8 +84,8 @@ def my_teams(request):
 def project_details(request, pid):
     username = request.session.get('user', '')
     project = get_object_or_404(Project, id=pid)
-    bug_list = Bug.objects.all()
-    paginator = Paginator(bug_list, 5)
+    bug_list = Bug.objects.filter(Pid=pid)
+    paginator = Paginator(bug_list, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -104,7 +104,7 @@ def search_bugs(request):
     username = request.session.get('user', '')
     search_id = request.GET.get('id', '')
     bug_list = Bug.objects.filter(id__iexact=search_id)
-    paginator = Paginator(bug_list, 5)
+    paginator = Paginator(bug_list, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -145,3 +145,9 @@ def create_action(request):
             bug.save()
             response = HttpResponseRedirect('/project_details/'+pid)
             return response
+
+
+# 用户个人信息页
+def user_info(request):
+    username = request.session.get('user', '')
+    return render(request, 'user_info.html', {'user': username})

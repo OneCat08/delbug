@@ -25,7 +25,7 @@
                     <li><a href="/{{ project.id }}/create_bug/">新建缺陷</a> </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">{{ user }}</a></li>
+                    <li><a href="/user_info/">{{ user }}</a></li>
                     <li><a href="/logout/">退出</a></li>
                 </ul>
             </div>
@@ -98,16 +98,6 @@
             {% endif %}
         </span>
     </div>
-
-    <script type="text/javascript">
-
-                        var bid = document.getElementById('ta-bug').tbody;
-                        var proid = {{ project.id }};
-                        var buid = {{ bugs.id }};
-                        /*for(var i = 0;i<contacts.length;i++){if(contacts[i].Pid != proid) {bid.style.display='none'}*/
-                        console.log(proid);
-                        console.log(buid)
-    </script>
 
 
 </body>

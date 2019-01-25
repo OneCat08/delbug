@@ -6,6 +6,34 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <title>缺陷管理平台</title>
+            <style>
+        .black_overlay{
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index:1001;
+            -moz-opacity: 0.8;
+            opacity:.80;
+            filter: alpha(opacity=88);
+        }
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 55%;
+            height: 55%;
+            padding: 20px;
+            border: 10px solid rgba(13, 13, 13, 0.77);
+            background-color: white;
+            z-index:1002;
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
     <!--导航栏-->
@@ -20,7 +48,7 @@
                     <li class="active"><a href="#">我的团队</a> </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">{{ user }}</a></li>
+                    <li><a href="/user_info/">{{ user }}</a></li>
                     <li><a href="/logout/">退出</a></li>
                 </ul>
             </div>
@@ -33,7 +61,7 @@
             <table class="table table-striped" align="center">
                 <thead>
                 <tr>
-                    <th>id</th><th>名称</th><th>时间</th><th>人数</th>
+                    <th>id</th><th>名称</th><th>时间</th><th>人数</th><th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,6 +71,10 @@
                     <td><a href="/pro_index/{{ t.id }}/">{{ t.Tname }}</a></td>
                     <td>{{ t.create_time }}</td>
                     <td>{{ t.number }}</td>
+                    <td>
+                        <input type="button" value="添加成员" onclick="openDialog()">
+                        <button>创建项目</button>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -64,6 +96,42 @@
             {% endif %}
         </span>
     </div>
+
+    <!--弹窗页面-->
+    <div id="light" class="white_content">
+        <table>
+            <tr>
+                <td>帐号</td>
+                <td><input></td>
+                <td><input type="button" value="添加"></td>
+                <a href = "javascript:void(0)" onclick = "closeDialog()" width=100% style="right: 100%">❌</a>
+            </tr>
+        </table>
+        <table>
+            <thead>
+                <tr><th>序号</th><th>用户名</th><th>帐号</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
+    <script type="text/javascript">
+        $(function(){
+        })
+        function openDialog(){
+            document.getElementById('light').style.display='block';
+            document.getElementById('fade').style.display='block'
+        }
+        function closeDialog(){
+            document.getElementById('light').style.display='none';
+            document.getElementById('fade').style.display='none'
+        }
+    </script>
 
 </body>
 </html>
