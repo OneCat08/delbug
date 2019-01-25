@@ -99,14 +99,14 @@
 
     <!--弹窗页面-->
     <div id="light" class="white_content">
-        <table>
-            <tr>
-                <td>帐号</td>
-                <td><input></td>
-                <td><input type="button" value="添加"></td>
-                <a href = "javascript:void(0)" onclick = "closeDialog()" width=100% style="right: 100%">❌</a>
-            </tr>
-        </table>
+        <a href = "javascript:void(0)" onclick = "closeDialog()">❌</a>
+        <form class="form-creat" method="post" action="#">
+        <label for="inputUsername" class="sr-only">用户名</label>
+          <input name="username" type="text" id="inputUsername" class="form-control" placeholder="用户名"
+                 style="width: 150px" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" style="width: 150px" type="submit">添加</button>
+      </form>
+
         <table>
             <thead>
                 <tr><th>序号</th><th>用户名</th><th>帐号</th></tr>
